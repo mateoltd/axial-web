@@ -1,0 +1,170 @@
+---
+import { Icon } from '../components/Icon';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const githubUrl = 'https://github.com/mateoltd/axial';
+const releasesUrl = 'https://github.com/mateoltd/axial/releases';
+
+const downloads = [
+  {
+    id: 'macos',
+    platform: 'macOS',
+    detail: 'Active development · Apple Silicon',
+  },
+  {
+    id: 'linux',
+    platform: 'Linux',
+    detail: 'Active development · x64',
+  },
+  {
+    id: 'windows',
+    platform: 'Windows',
+    detail: 'Early alpha · x64',
+  },
+];
+---
+
+<BaseLayout
+  title="Axial, the Minecraft launcher"
+  description="Axial keeps every instance, mod, and world in its place, absorbs the technical routine, and gets you into the game without fuss. Direct downloads for macOS, Linux, and Windows."
+>
+  <header class="site-header">
+    <nav class="site-nav" aria-label="Main navigation">
+      <a class="brand" href="#top" aria-label="Axial home">
+        <img src="/logo.png" width="34" height="34" alt="" />
+        <span>Axial</span>
+      </a>
+
+      <div class="nav-links">
+        <a href="#downloads">Downloads</a>
+        <a href={githubUrl}>GitHub</a>
+      </div>
+
+      <a class="cp-btn cp-btn--secondary" href="#downloads">
+        <Icon name="download" size={16} />
+        <span>Download</span>
+      </a>
+    </nav>
+  </header>
+
+  <main id="top" class="shell">
+    <section class="hero">
+      <h1>A calm home <br />for your Minecraft.</h1>
+      <p class="hero-sub">
+        Axial keeps every instance, mod, and world in its place, absorbs the
+        technical routine, and gets you into the game without fuss.
+      </p>
+      <div class="hero-actions">
+        <a
+          class="cp-btn cp-btn--primary cp-btn--lg"
+          id="hero-download"
+          href="#downloads"
+        >
+          <Icon name="download" size={18} />
+          <span id="hero-download-label">Download Axial</span>
+        </a>
+        <a class="hero-alt" href="#downloads">All platforms</a>
+      </div>
+    </section>
+
+    <section class="bleed" aria-label="Axial Launcher home screen">
+      <div class="bleed-inner">
+        <img
+          src="/images/launcher-home.jpg"
+          width="2560"
+          height="1600"
+          alt="Axial home screen with a featured instance ready to play and the instance library below"
+        />
+        <div class="bleed-fade" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <section class="ethos" aria-label="What Axial does">
+      <p>
+        Every instance keeps its <em>worlds, mods, and versions to itself</em>.
+        Java, memory, and loaders are <em>homework Axial does for you</em>.
+        Guardian <em>watches quietly</em> and asks before touching{' '}
+        <em>anything that is yours</em>.
+      </p>
+    </section>
+
+    <section id="downloads" class="downloads">
+      <h2>Download Axial</h2>
+      <p class="notice-line" role="note">
+        Early software. The macOS and Linux builds are under active development
+        and still carry bugs. Windows is an early alpha and rougher than the
+        other two.
+      </p>
+
+      <div class="download-list">
+        {
+          downloads.map((d) => (
+            <div class="download-row" id={`download-${d.id}`}>
+              <span class="dl-platform">{d.platform}</span>
+              <span class="dl-detail">{d.detail}</span>
+              <span class="dl-cue" aria-hidden="true">
+                <Icon name="download" size={20} />
+              </span>
+            </div>
+          ))
+        }
+      </div>
+
+      <p class="download-fineprint">
+        New builds are being packaged for release right now. Direct downloads
+        for every platform will appear here the moment they are ready.
+      </p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-top">
+      <a class="brand brand-small" href="#top">
+        <img src="/logo.png" width="28" height="28" alt="" />
+        <span>Axial</span>
+      </a>
+      <div class="footer-links">
+        <a href="#downloads">Downloads</a>
+        <a href={githubUrl}>GitHub</a>
+        <a href={releasesUrl}>Releases</a>
+      </div>
+    </div>
+    <div class="footer-wordmark" aria-hidden="true">
+      <span class="wm-glow"></span>Axial
+    </div>
+  </footer>
+
+  <script>
+    const platforms: Record<string, { label: string; anchor: string }> = {
+      mac: { label: 'Download for macOS', anchor: '#download-macos' },
+      win: { label: 'Download for Windows', anchor: '#download-windows' },
+      linux: { label: 'Download for Linux', anchor: '#download-linux' },
+    };
+
+    const ua = navigator.userAgent;
+    const key = /Mac/i.test(ua)
+      ? 'mac'
+      : /Win/i.test(ua)
+        ? 'win'
+        : /Linux|X11/i.test(ua)
+          ? 'linux'
+          : null;
+
+    if (key) {
+      const target = platforms[key];
+      const label = document.getElementById('hero-download-label');
+      const button = document.getElementById('hero-download');
+      if (label && button) {
+        label.textContent = target.label;
+        button.setAttribute('href', target.anchor);
+      }
+    }
+
+    const wordmark = document.querySelector<HTMLElement>('.footer-wordmark');
+    wordmark?.addEventListener('pointermove', (event) => {
+      const rect = wordmark.getBoundingClientRect();
+      wordmark.style.setProperty('--wm-x', `${event.clientX - rect.left}px`);
+      wordmark.style.setProperty('--wm-y', `${event.clientY - rect.top}px`);
+    });
+  </script>
+</BaseLayout>

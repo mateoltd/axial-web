@@ -1,0 +1,21 @@
+import { defineConfig } from 'astro/config';
+import react from '@astrojs/react';
+import { fileURLToPath } from 'node:url';
+
+const iconSubset = fileURLToPath(
+  new URL('./src/vendor/openai-icons-subset.js', import.meta.url),
+);
+
+export default defineConfig({
+  integrations: [react()],
+  vite: {
+    server: {
+      allowedHosts: ['zenith.local'],
+    },
+    resolve: {
+      alias: {
+        '@openai/apps-sdk-ui/components/Icon': iconSubset,
+      },
+    },
+  },
+});
