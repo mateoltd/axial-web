@@ -7,7 +7,15 @@ const iconSubset = fileURLToPath(
 );
 
 export default defineConfig({
+  site: 'https://axial.run',
   integrations: [react()],
+  i18n: {
+    defaultLocale: 'en',
+    locales: ['en', 'es'],
+    routing: {
+      prefixDefaultLocale: false,
+    },
+  },
   vite: {
     server: {
       allowedHosts: ['zenith.local'],
