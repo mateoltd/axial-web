@@ -131,13 +131,57 @@ const downloads = [
 
     <section class="bleed" aria-label={copy.screenshot.ariaLabel}>
       <div class="bleed-inner">
-        <img
-          src="/images/launcher-home.jpg"
-          width="2560"
-          height="1600"
-          alt={copy.screenshot.alt}
-        />
+        <picture>
+          <source
+            media="(max-width: 760px)"
+            srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+          />
+          <img
+            src="/images/launcher-home.jpg"
+            width="2560"
+            height="1600"
+            alt={copy.screenshot.alt}
+          />
+        </picture>
         <div class="bleed-fade" aria-hidden="true"></div>
+      </div>
+      <div class="bleed-mobile" aria-hidden="true">
+        <div class="bm-greeting">
+          <span class="bm-hello">{copy.screenshot.mobileArt.greeting}</span>
+          <span class="bm-tally">{copy.screenshot.mobileArt.tally}</span>
+        </div>
+        <div class="bm-resume">
+          <div class="bm-resume-info">
+            <span class="bm-kicker">{copy.screenshot.mobileArt.kicker}</span>
+            <span class="bm-name">{copy.screenshot.mobileArt.instanceName}</span>
+            <span class="bm-detail">{copy.screenshot.mobileArt.instanceDetail}</span>
+          </div>
+          <span class="bm-play">
+            <Icon name="play" size={14} />
+            <span>{copy.screenshot.mobileArt.play}</span>
+          </span>
+        </div>
+        <div class="bm-library">
+          <span class="bm-heading">{copy.screenshot.mobileArt.library}</span>
+          <div class="bm-cards">
+            {
+              copy.screenshot.mobileArt.cards.map((card) => (
+                <div class="bm-card">
+                  <img
+                    class="bm-cover"
+                    src={`/images/covers/${card.image}.png`}
+                    width="428"
+                    height="259"
+                    alt=""
+                    loading="lazy"
+                  />
+                  <span class="bm-card-name">{card.name}</span>
+                  <span class="bm-card-detail">{card.detail}</span>
+                </div>
+              ))
+            }
+          </div>
+        </div>
       </div>
     </section>
 

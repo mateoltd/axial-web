@@ -30,6 +30,19 @@ export const ui = {
     screenshot: {
       ariaLabel: 'Axial Launcher home screen',
       alt: 'Axial home screen with a featured instance ready to play and the instance library below',
+      mobileArt: {
+        greeting: 'Good evening, MockPlayer.',
+        tally: '5 instances in your library',
+        kicker: 'Jump back in',
+        instanceName: 'Survival Ridge',
+        instanceDetail: 'Vanilla 1.21.6',
+        play: 'Play',
+        library: 'Library',
+        cards: [
+          { image: 'fabric-lab', name: 'Fabric Lab', detail: 'Fabric 1.21.5' },
+          { image: 'forge-works', name: 'Forge Works', detail: 'Forge 1.21.1' },
+        ],
+      },
     },
     ethos: {
       ariaLabel: 'What Axial does',
@@ -135,6 +148,19 @@ export const ui = {
     screenshot: {
       ariaLabel: 'Pantalla de inicio de Axial Launcher',
       alt: 'Pantalla de inicio de Axial con una instancia destacada lista para jugar y la biblioteca de instancias debajo',
+      mobileArt: {
+        greeting: 'Buenas tardes, MockPlayer.',
+        tally: '5 instancias en tu biblioteca',
+        kicker: 'Sigue donde lo dejaste',
+        instanceName: 'Survival Ridge',
+        instanceDetail: 'Vanilla 1.21.6',
+        play: 'Jugar',
+        library: 'Biblioteca',
+        cards: [
+          { image: 'fabric-lab', name: 'Fabric Lab', detail: 'Fabric 1.21.5' },
+          { image: 'forge-works', name: 'Forge Works', detail: 'Forge 1.21.1' },
+        ],
+      },
     },
     ethos: {
       ariaLabel: 'Qué hace Axial',
