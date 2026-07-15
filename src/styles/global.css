@@ -191,7 +191,7 @@ a {
 .nav-links a:focus-visible,
 .brand:focus-visible,
 .hero-alt:focus-visible,
-.download-row:focus-visible,
+.dl-link:focus-visible,
 .download-fineprint a:focus-visible,
 .site-footer a:focus-visible {
   outline: none;
@@ -380,14 +380,20 @@ a {
 .download-row {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 28px;
   padding: 30px 6px;
   border-bottom: 1px solid var(--line);
   scroll-margin-top: 110px;
 }
 
+.dl-id {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 .dl-platform {
-  flex: 1;
   color: var(--text);
   font-size: clamp(32px, 4.6vw, 56px);
   font-weight: 800;
@@ -399,19 +405,38 @@ a {
   color: var(--text-mute);
   font-size: 12.5px;
   font-weight: 600;
-  white-space: nowrap;
 }
 
-.dl-cue {
+.dl-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.dl-link {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  width: 46px;
-  height: 46px;
-  flex: none;
-  border-radius: 50%;
+  gap: 8px;
+  height: 40px;
+  border-radius: var(--r-sm);
+  padding: 0 18px;
   background: var(--surface);
-  color: var(--text-mute);
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 650;
+  white-space: nowrap;
+  transition:
+    background 120ms ease,
+    color 120ms ease,
+    scale 70ms ease;
+}
+
+.dl-link:hover {
+  background: var(--surface-2);
+}
+
+.dl-link:active {
+  scale: 0.97;
 }
 
 .download-fineprint {
@@ -512,44 +537,37 @@ a {
   content: 'Axial';
   position: absolute;
   inset: 0;
-  background: radial-gradient(
-    clamp(200px, 22vw, 420px) circle at var(--wm-x, 50%) var(--wm-y, 130%),
-    oklch(0.66 0.14 140) 0%,
-    oklch(0.42 0.09 140) 34%,
-    oklch(0.24 0.04 140 / 0.5) 62%,
-    transparent 76%
+  background: linear-gradient(
+    105deg,
+    oklch(0.24 0.026 140) 0%,
+    oklch(0.36 0.055 140) 20%,
+    oklch(0.26 0.03 140) 38%,
+    oklch(0.4 0.065 140) 58%,
+    oklch(0.25 0.028 140) 76%,
+    oklch(0.34 0.05 140) 100%
   );
+  background-size: 260% 100%;
+  background-position: calc(50% + var(--wm-shift, 0px)) 0;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+  -webkit-mask-image: radial-gradient(
+    clamp(200px, 22vw, 400px) circle at var(--wm-x, 50%) var(--wm-y, 50%),
+    black 20%,
+    transparent 72%
+  );
+  mask-image: radial-gradient(
+    clamp(200px, 22vw, 400px) circle at var(--wm-x, 50%) var(--wm-y, 50%),
+    black 20%,
+    transparent 72%
+  );
   opacity: 0;
-  transition: opacity 350ms ease;
+  transition: opacity 300ms ease;
   pointer-events: none;
 }
 
 .footer-wordmark:hover::after {
   opacity: 1;
-  transition-duration: 150ms;
-}
-
-.wm-glow {
-  position: absolute;
-  z-index: -2;
-  inset: -20% -10%;
-  background: radial-gradient(
-    clamp(280px, 30vw, 560px) circle at var(--wm-x, 50%) var(--wm-y, 130%),
-    oklch(0.42 0.1 140 / 0.22),
-    transparent 70%
-  );
-  filter: blur(36px);
-  opacity: 0;
-  transition: opacity 400ms ease;
-  pointer-events: none;
-}
-
-.footer-wordmark:hover .wm-glow {
-  opacity: 1;
-  transition-duration: 180ms;
 }
 
 /* ---------- responsive ---------- */
@@ -600,27 +618,18 @@ a {
   }
 
   .download-row {
-    position: relative;
     flex-wrap: wrap;
-    gap: 10px 16px;
-    padding: 24px 56px 24px 2px;
+    gap: 18px;
+    padding: 24px 2px;
   }
 
-  .dl-platform {
-    flex: 1 1 100%;
+  .dl-links {
+    width: 100%;
   }
 
-  .dl-detail {
-    white-space: normal;
-  }
-
-  .dl-cue {
-    position: absolute;
-    top: 50%;
-    right: 2px;
-    translate: 0 -50%;
-    width: 40px;
-    height: 40px;
+  .dl-link {
+    flex: 1;
+    justify-content: center;
   }
 
   .footer-top {

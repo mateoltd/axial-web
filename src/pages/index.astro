@@ -5,21 +5,31 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 const githubUrl = 'https://github.com/mateoltd/axial';
 const releasesUrl = 'https://github.com/mateoltd/axial/releases';
 
+const rel = 'https://github.com/mateoltd/axial/releases/download/v0.4.0-dev.4';
+
 const downloads = [
   {
     id: 'macos',
     platform: 'macOS',
-    detail: 'Active development · Apple Silicon',
+    detail: 'Active development',
+    builds: [
+      { label: 'Apple Silicon', url: `${rel}/axial-macos-arm64-0.4.0-dev.4` },
+      { label: 'Intel', url: `${rel}/axial-macos-amd64-0.4.0-dev.4` },
+    ],
   },
   {
     id: 'linux',
     platform: 'Linux',
-    detail: 'Active development · x64',
+    detail: 'Active development',
+    builds: [{ label: 'x64', url: `${rel}/axial-linux-amd64-0.4.0-dev.4` }],
   },
   {
     id: 'windows',
     platform: 'Windows',
-    detail: 'Early alpha · x64',
+    detail: 'Early alpha',
+    builds: [
+      { label: 'x64', url: `${rel}/axial-windows-amd64-0.4.0-dev.4.exe` },
+    ],
   },
 ];
 ---
@@ -100,19 +110,28 @@ const downloads = [
         {
           downloads.map((d) => (
             <div class="download-row" id={`download-${d.id}`}>
-              <span class="dl-platform">{d.platform}</span>
-              <span class="dl-detail">{d.detail}</span>
-              <span class="dl-cue" aria-hidden="true">
-                <Icon name="download" size={20} />
-              </span>
+              <div class="dl-id">
+                <span class="dl-platform">{d.platform}</span>
+                <span class="dl-detail">{d.detail}</span>
+              </div>
+              <div class="dl-links">
+                {d.builds.map((b) => (
+                  <a class="dl-link" href={b.url} download>
+                    <Icon name="download" size={15} />
+                    <span>{b.label}</span>
+                  </a>
+                ))}
+              </div>
             </div>
           ))
         }
       </div>
 
       <p class="download-fineprint">
-        New builds are being packaged for release right now. Direct downloads
-        for every platform will appear here the moment they are ready.
+        Every button downloads the app itself, a single file that runs where
+        you put it. No account, no installer, no detours. Checksums and older
+        builds live in{' '}
+        <a href={releasesUrl}>the releases archive</a>.
       </p>
     </section>
   </main>
@@ -129,9 +148,7 @@ const downloads = [
         <a href={releasesUrl}>Releases</a>
       </div>
     </div>
-    <div class="footer-wordmark" aria-hidden="true">
-      <span class="wm-glow"></span>Axial
-    </div>
+    <div class="footer-wordmark" aria-hidden="true">Axial</div>
   </footer>
 
   <script>
@@ -163,8 +180,11 @@ const downloads = [
     const wordmark = document.querySelector<HTMLElement>('.footer-wordmark');
     wordmark?.addEventListener('pointermove', (event) => {
       const rect = wordmark.getBoundingClientRect();
-      wordmark.style.setProperty('--wm-x', `${event.clientX - rect.left}px`);
-      wordmark.style.setProperty('--wm-y', `${event.clientY - rect.top}px`);
+      const x = event.clientX - rect.left;
+      const y = event.clientY - rect.top;
+      wordmark.style.setProperty('--wm-x', `${x}px`);
+      wordmark.style.setProperty('--wm-y', `${y}px`);
+      wordmark.style.setProperty('--wm-shift', `${(x - rect.width / 2) * -0.18}px`);
     });
   </script>
 </BaseLayout>
