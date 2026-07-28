@@ -7,12 +7,15 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro check && astro build",
-    "preview": "astro preview",
+    "preview": "pnpm --filter axial-web... run build && wrangler dev",
     "check": "astro check",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "generate-types": "wrangler types",
+    "deploy": "pnpm --filter axial-web... run build && wrangler deploy"
   },
   "dependencies": {
+    "@astrojs/cloudflare": "^14.1.5",
     "@astrojs/react": "^6.0.1",
     "@openai/apps-sdk-ui": "^0.2.2",
     "astro": "^7.0.7",
@@ -25,6 +28,7 @@
     "@types/react-dom": "^19.1.9",
     "prettier": "^3.8.4",
     "prettier-plugin-astro": "^0.14.1",
-    "typescript": "^5.9.2"
+    "typescript": "^5.9.2",
+    "wrangler": "^4.114.0"
   }
 }
